@@ -1,0 +1,8 @@
+web/img
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+.DS_Store

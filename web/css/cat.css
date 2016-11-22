@@ -1,0 +1,171 @@
+div.iprodiv
+{
+    display: inline-block;
+    
+    margin: 4px;
+    border: darkred solid thick;
+    padding: 12px;
+    border-radius: 12px;
+    
+    background-color: white;
+}
+
+button.okbut
+{
+    width: 100%;
+    height: 40px;
+    
+    color: whitesmoke;
+    background-color: darkcyan;
+    
+    border: none;
+    
+    margin-top: 12px;
+    
+}
+button.okbut:hover
+{
+    color: white;
+    background-color: darkslategray;
+}
+
+.container
+{
+    margin: 20px;
+    margin-top: 0;
+}
+
+body
+{
+    background-image: url("http://iswy.ddns.net/resources/pattern01.png");
+}
+
+.ae_logo
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.confo
+{
+    margin: 14px;
+    border: #2ECC71 solid thin;
+    padding: 14px;
+    
+    background-color: #286090;
+    font-family: monospace;
+    font-size: 24px;
+    color: white;
+}
+
+div.prolop
+{
+    margin-top: 14px;
+    margin-bottom: 14px;
+    
+    padding: 16px;
+    
+    border: #122b40 solid thin;
+    border-radius: 12px;
+    
+    background-color: oldlace;
+    
+    font-family: sans-serif;
+    font-size: 28px;
+}
+
+#carritox
+{
+    display: inline-block;
+    font-family: monospace;
+    font-size: 32px;
+    border: #122b40 solid thick;
+    background-color: darkred;
+    color: whitesmoke;
+}
+#howmany
+{
+    display: block;
+    float: right;
+    
+    padding: 12px;
+    border: #122b40 solid thick;
+    border-radius: 12px;
+    
+    background-color: ghostwhite;
+}
+#howmany:hover
+{
+    background-color: lightsteelblue;
+}
+
+
+div.cabe
+{
+    font-family: "Droid Sans", "Helvetica Neue", "Segoe UI", sans-serif;
+    
+    width: 100%;
+    
+    margin: 0;
+    padding: 24px;
+    padding-top: 0;
+    color: whitesmoke;
+    /*background-color: darkslategray;
+*/    
+    position: fixed;
+/*
+    left:0px;
+    bottom:0px;
+    height:130px;
+    width:100%;
+    */
+}
+
+div.nocabe
+{
+    visibility: hidden;
+}
+
+div.nodo
+{
+    font-size: 24px;
+    margin : 2px;
+    padding: 8px;
+}
+div.nodo:nth-of-type(odd)
+{
+    background-color: lightcyan;
+}
+div.nodo:nth-of-type(even)
+{
+    background-color: lightyellow;
+}
+div.dadato
+{
+    padding: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    background-color: ghostwhite;
+    border: black solid 2px;
+    display: inline-block;
+}
+div.xhead
+{
+    
+    margin : 0;
+    margin-top: 24px;
+    background-color: darkslategray;
+    padding: 12px;
+    color: whitesmoke;
+}
+span.ajaxing
+{
+    border: #286090 2px solid;
+    padding: 12px;
+}
+
+.oculto
+{
+    display: none;
+}

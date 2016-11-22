@@ -1,0 +1,110 @@
+<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel = "stylesheet" href = "materialize/css/materialize.css" >
+
+<div class="row">
+	<form class="col s12">
+
+		<!-- código -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="codigo" type="text" class="validate" />
+				<label for="codigo">Código del producto</label>
+			</div>
+		</div>
+
+		<!-- producto -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="producto" type="text" class="validate">
+				<label for="producto">Producto (Nombre)</label>
+			</div>
+		</div>
+
+		<!-- marca -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="marca" type="text" class="validate">
+				<label for="marca">Marca del producto</label>
+			</div>
+		</div>
+
+		<!-- precio de adquisición -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="precio_ad" type="text" class="validate">
+				<label for="precio_ad">Precio al que se adquirió</label>
+			</div>
+		</div>
+
+		<!-- Stock -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="stock" type="text" class="validate">
+				<label for="stock">Cantidad en inventario</label>
+			</div>
+		</div>
+
+		<!-- precio de venta -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="precio" class="materialize-input">
+				<label for="precio">Precio (de venta)</label>
+			</div>
+		</div>
+
+		<!-- punto de reorden -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="reorden" class="materialize-input">
+				<label for="reorden">Punto de reorden</label>
+			</div>
+		</div>
+
+		<!-- tipo de moneda -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="moneda" class="materialize-input">
+				<label for="moneda">Tipo de moneda</label>
+			</div>
+		</div>
+
+		<!-- categoría -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="categoria" class="materialize-input">
+				<label for="categoria">Categoría del producto</label>
+			</div>
+		</div>
+
+		<!-- precio al mayoreo -->
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">mode_edit</i>
+				<input id="precio_may" class="materialize-input">
+				<label for="precio_may">Precio al mayoreo</label>
+			</div>
+		</div>
+
+		<!-- Boton de Guardar -->
+		<a class="waves-effect waves-light btn-large disabled" id="okbut">Guardar</a>
+
+	</form>
+
+    <div id="tabla"></div>
+
+</div>
+
+<div id="tabla"></div>
+
+<script type = "text/javascript" src = "js/jquery.js" ></script >
+<script type = "text/javascript" src = "materialize/js/materialize.js" ></script >
+<script type = "text/javascript" src = "js/admin_producto.js" ></script >

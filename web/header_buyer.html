@@ -1,0 +1,72 @@
+<nav>
+	<!-- principal , catálogo -->
+	<div class="nav-wrapper">
+		<a href="#" class="brand-logo">E-Commerce•Admin</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li><a id="cerrar" href="index.html"> •Cerrar Sesión• </a></li>
+			<li><a href="buyer_principal.html">Página de comprador</a></li>
+			<li><a href="buyer_catalogo.html">Catálogo</a></li>
+            <li><a href="#" id="carritox">Carro</a></li>
+		</ul>
+	</div>
+</nav>
+
+<script type = "text/javascript" src = "js/jquery.js" ></script >
+<script type = "text/javascript" src = "materialize/js/materialize.js" ></script >
+<script type="text/javascript">
+
+	function getCookie(cname)
+	{
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i <ca.length; i++)
+		{
+			var c = ca[i];
+			while (c.charAt(0)==' ')
+			{
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0)
+			{
+				return c.substring(name.length,c.length);
+			}
+		}
+		return "";
+	}
+
+	var header_buyer = function (  )
+	{
+		$("#cerrar").on("click",function ( e )
+		{
+			document.cookie = "nombre=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+            document.cookie = "rol=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+
+            $( "#header_header" ).load( "header01.html" );
+            $( "#content_content" ).load( "login.html" );
+		});
+
+		$("#nav-mobile li a").on("click",function ( e )
+		{
+			e.preventDefault();
+			//guardar los atributos dentro de page
+			var page = $( this ).attr( 'href' );
+			$( '#content_content' ).load( page , { redirect: 'no' } );
+			$( '#nav-mobile li' ).removeClass( 'active' );
+			$( this ).parent().addClass( 'active' );
+		});
+
+		$("#cerrar").text("Cerrar sesión ("+getCookie("nombre")+") ");
+
+		window.setTimeout(function (  )
+		{
+			$("#cerrar").text("Cerrar sesión ("+getCookie("nombre")+") ");
+		},500);
+
+		window.setTimeout(function (  )
+		{
+			$("#cerrar").text("Cerrar sesión ("+getCookie("nombre")+") ");
+		},1000);
+
+	};
+	$(document).ready(header_buyer);
+</script>
