@@ -46,32 +46,26 @@ var URL = "/glassfish-4.1.1/glassfish/domains/domain1/config/img/"; //en el serv
 var NombreArchivo = "";
 var ultimoIDE = 0;
 
-function subirImagen( elemento )
-{
-    ultimoIDE++; //tras recuperar el valor de ide del ultimo registro, se le suma uno mas para que concuerde con el
-    //nombre del proximo archivo
-    var file = elemento.files[0]; //permite elegir el archivo, en este caso es solo uno, el primero que es 0
-    var objHidden = document.formulario.nombre; //referencia
-    objHidden.value = file.name;
-    NombreArchivo = file.name;
-    if ( NombreArchivo.match( /([^\s]+(?=\.(jpg))\.\2)/gm ) )
-    { //si es un archivo jpg
-        NombreArchivo = ultimoIDE + ".jpg";
+function subirImagen(elemento){
+        ultimoIDE++; //tras recuperar el valor de ide del ultimo registro, se le suma uno mas para que concuerde con el
+        //nombre del proximo archivo
+        var file=elemento.files[0]; //permite elegir el archivo, en este caso es solo uno, el primero que es 0
+        var objHidden=document.formulario.nombre; //referencia
+        objHidden.value=file.name;
+        NombreArchivo=file.name;
+        if(NombreArchivo.match(/([^\s]+(?=\.(jpg))\.\2)/gm)){ //si es un archivo jpg
+            NombreArchivo=ultimoIDE+".jpg";
+        } else if(NombreArchivo.match(/([^\s]+(?=\.(png))\.\2)/gm)){ //si es que es un png
+            NombreArchivo=ultimoIDE+".png";
+        } else {
+            window.alert("Error en la selección de archivo: solo se admiten archivos con formato diferente de .png o .jpg");
+            return; //no llevar a cabo ninguna operacion, este metodo se ejecuta antes que "nuevo producto"
+        }
+        objHidden.value=NombreArchivo;
+        document.formulario.target="null"; //cuanod se procese el formulario se dirige al iframe y no al servlet
+        document.formulario.action= "NewImg"; //escribir le nombre dle archivo que va a procesar (sevlet)
+        document.formulario.submit();
     }
-    else if ( NombreArchivo.match( /([^\s]+(?=\.(png))\.\2)/gm ) )
-    { //si es que es un png
-        NombreArchivo = ultimoIDE + ".png";
-    }
-    else
-    {
-        window.alert( "Error en la selección de archivo: solo se admiten archivos con formato diferente de .png o .jpg" );
-        return; //no llevar a cabo ninguna operacion, este metodo se ejecuta antes que "nuevo producto"
-    }
-    objHidden.value = NombreArchivo;
-    document.formulario.target = "null"; //cuanod se procese el formulario se dirige al iframe y no al servlet
-    document.formulario.action = "NewImg"; //escribir le nombre dle archivo que va a procesar (sevlet)
-    document.formulario.submit();
-}
 
 var main_productos = function ()
 {
@@ -124,26 +118,14 @@ var main_productos = function ()
             Materialize.updateTextFields();
         }
 
-        var $in = $( "<input>" );
-        $in.attr( "type" , "file" );
-        $in.attr( "name" , "archivo" );
-        $in.attr( "id" , "archivo" );
-
-        var $inh = $( "<input>" );
-        $in.attr( "type" , "hidden" );
-        $in.attr( "name" , "nombreh" );
-        $in.attr( "value" , "" );
-
-        $( "#formulario" ).append( $in );
-        $( "#formulario" ).append( $inh );
-
-        $( "#okbut" ).on( "click" , function ( evt )
-        {
-            subirImagen( $( "#archivo" ) );
-        } );
-
     } );
 
+    
+    $( "#okbut" ).on( "click" , function ( evt )
+    {
+        subirImagen( $( "#archivo" ).val());
+    } );
+    
     obtener();
 };
 $( document ).ready( main_productos );

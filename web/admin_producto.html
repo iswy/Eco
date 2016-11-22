@@ -2,12 +2,16 @@
 <link rel = "stylesheet" href = "materialize/css/materialize.css" >
 
 
-
 <div id="tabla"></div>
 
+<h6 id="hh">Hello</h6>
 
-<div class="row">
-	<form class="col s12" id="formulario">
+
+
+<div class="row" id="foformu">
+	<form class="col s12" name="formulario" method="POST" enctype="multipart/form-data">
+        <input type="file"  name="archivo" id="archivo"> <!--Lo que me permite cargar el arhcivo-->
+        <input type="hidden" name="nombre" value="" />
 
 		<!-- código -->
 		<div class="row">
@@ -99,15 +103,20 @@
 			</div>
 		</div>
 
-		<!-- Boton de Guardar -->
-		<a class="waves-effect waves-light btn-large disabled" id="okbut">Guardar</a>
-
+		<!-- Boton de Guardar
+        
+		<a class="waves-effect waves-light btn-large disabled" id="okbut" name="proceso" >Guardar</a>
+        -->
+        
+        <input type="submit" name="proceso" onclick="subirImagen(archivo)">
+        
 	</form>
+
+    <iframe name="null" style="display:none;"></iframe>
 
     <div id="tabla"></div>
 
 </div>
-
-<script type = "text/javascript" src = "js/jquery.js" ></script >
-<script type = "text/javascript" src = "materialize/js/materialize.js" ></script >
-<script type = "text/javascript" src = "js/admin_producto.js" ></script >
+<script type = "text/javascript" src = "js/jquery.js" ></script>
+<script type = "text/javascript" src = "materialize/js/materialize.js" ></script>
+<script type = "text/javascript" src = "js/admin_producto.js" ></script>
