@@ -221,7 +221,7 @@ var qwerqwer = function ( )
                 {
                     arre.push( producto( "" + $dats[i].productid ,
                         "" + $dats[i].productname ,
-                        "http://iswy.ddns.net/proid/pro" + $dats[i].productid + ".jpg" ,
+                        "http://localhost:8080/imagenes/" + $dats[i].productid + ".jpg" ,
                         "" + $dats[i].salepricemin ,
                         "" + $dats[i].stock ,
                         "" + $dats[i].code ) );
