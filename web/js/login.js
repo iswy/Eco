@@ -22,11 +22,13 @@ var print = function ( str )
     $( "#print" ).append( $( "<p>" ).text( str ) );
 };
 
-var agregaroption = function ( str , index )
+var agregaroption = function ( str , index , strknd )
 {
+    var texto = str + "  (" + strknd + ")";
+
     $sel = $( "select[id=sseell]" );
 
-    $sel.append( $( '<option>' , { value: index , text: '' + str } ) );
+    $sel.append( $( '<option>' , { value: index , text: '' + texto } ) );
 
     $sel.material_select();
 };
@@ -44,11 +46,13 @@ var obtenerUsuarios = function ()
         //var d = JSON.parse(datos);
 
 
-        d.forEach( function ( usuario , index )
+        d.forEach( function ( usuario , index , )
         {
-            agregaroption( usuario.username , index );
-            print( usuario.username );
-            print( "index:" + index );
+            agregaroption( usuario.username , index , usuario.kinde );
+            print( "username: " + usuario.username );
+            print( "kinde: " + usuario.kinde );
+            print( "index: " + index );
+
         } );
 
     };
@@ -135,9 +139,12 @@ var lologin = function ()
         var querol = "admin";
         var valor = $( "#sseell option:selected" ).val();
 
-        if ( valor > 3 )
-            querol = "cliente";
+        //if()
 
+        /*
+         if ( valor > 3 )
+         querol = "cliente";
+         */
         document.cookie = "nombre=" + $( "#sseell option:selected" ).text() + ";";
         document.cookie = "rol=" + querol + ";";
 
