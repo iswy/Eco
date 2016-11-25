@@ -33,6 +33,8 @@ var agregaroption = function ( str , index , strknd )
     $sel.material_select();
 };
 
+var lusuarios;
+
 var obtenerUsuarios = function ()
 {
     var uurl = "http://localhost:8080/Binas/ws/ususer/obtener";
@@ -43,12 +45,15 @@ var obtenerUsuarios = function ()
 
         d = datos;
 
+        lusuarios=datos;
+
         //var d = JSON.parse(datos);
 
 
-        d.forEach( function ( usuario , index , )
+        d.forEach( function ( usuario , index )
         {
             agregaroption( usuario.username , index , usuario.kinde );
+            
             print( "username: " + usuario.username );
             print( "kinde: " + usuario.kinde );
             print( "index: " + index );
@@ -74,12 +79,12 @@ var obtenerUsuarios = function ()
         } ).done( obtenido ).fail( noobtenido );
 };
 
-var iniciar = function ()
+var iniciar = function (uuss,ccoo)
 {
     var uurl = "http://localhost:8080/Binas/ws/ususer/login";
 
-    var usuario = $( "#sseell" ).val();
-    var contras = $( "#contra" ).val();
+    var usuario = uuss;
+    var contras = ccoo;
 
     var zobtenido = function ( datos )
     {
@@ -89,6 +94,7 @@ var iniciar = function ()
 
         //var d = JSON.parse(datos);
 
+        print("Respuesta: "+JSON.stringify(datos));
 
         d.forEach( function ( usuario , index )
         {
@@ -101,23 +107,27 @@ var iniciar = function ()
 
     var znoobtenido = function ()
     {
-        print( "ajax not worked for url: " + uurl );
+        print( ":( ajax not worked for url: " + uurl );
 
-        for ( var i = 0; i < 10; i++ )
-        {
-            agregaroption( "xyz." + i );
-        }
+        
+    };
+
+    var enviar =
+    {
+        us: usuario,
+        co: contras
     };
 
     $.ajax(
         {
             type: "POST" ,
             url: uurl ,
-            data: { us: usuario , co: contras } ,
-            dataType: "json"
+            data: enviar ,
+            dataType: "application/json"
         } ).done( zobtenido ).fail( znoobtenido );
 };
 
+var nuevo=true;
 
 var lologin = function ()
 {
@@ -139,12 +149,23 @@ var lologin = function ()
         var querol = "admin";
         var valor = $( "#sseell option:selected" ).val();
 
-        //if()
+        if(lusuarios[valor].kinde !== "admin")
+            querol="cliente";
+
+        if(nuevo)
+        {
+            var ccontraa = $("#contra").val();
+            
+            print("iniciando sesión");
+            print("usuario: "+lusuarios[valor].username);
+            print("contraseña: "+ccontraa);
+
+            iniciar(lusuarios[valor].username,ccontraa);
+        }
 
         /*
-         if ( valor > 3 )
-         querol = "cliente";
-         */
+         
+         
         document.cookie = "nombre=" + $( "#sseell option:selected" ).text() + ";";
         document.cookie = "rol=" + querol + ";";
 
@@ -159,6 +180,7 @@ var lologin = function ()
             $( "#header_header" ).load( "header_buyer.html" );
         }
 
+*/
 
     } );
 
