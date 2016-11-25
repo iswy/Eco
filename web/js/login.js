@@ -17,6 +17,8 @@ function getCookie( cname )
     return "";
 }
 
+var valor = 0;
+
 var print = function ( str )
 {
     $( "#print" ).append( $( "<p>" ).text( str ) );
@@ -45,7 +47,7 @@ var obtenerUsuarios = function ()
 
         d = datos;
 
-        lusuarios=datos;
+        lusuarios = datos;
 
         //var d = JSON.parse(datos);
 
@@ -53,7 +55,7 @@ var obtenerUsuarios = function ()
         d.forEach( function ( usuario , index )
         {
             agregaroption( usuario.username , index , usuario.kinde );
-            
+
             print( "username: " + usuario.username );
             print( "kinde: " + usuario.kinde );
             print( "index: " + index );
@@ -79,8 +81,36 @@ var obtenerUsuarios = function ()
         } ).done( obtenido ).fail( noobtenido );
 };
 
-var iniciar = function (uuss,ccoo)
+
+var lexito = function ( akey )
 {
+    var querol = "admin";
+    
+
+    if ( lusuarios[valor].kinde !== "admin" )
+        querol = "cliente";
+
+
+    document.cookie = "nombre=" + $( "#sseell option:selected" ).text() + ";";
+    document.cookie = "rol=" + querol + ";";
+    document.cookie = "apikey=" + akey + ";";
+
+    if ( querol == "admin" )
+    {
+        $( "#content_content" ).load( "admin_menu.html" );
+        $( "#header_header" ).load( "header_admin.html" );
+    }
+    if ( querol == "cliente" )
+    {
+        $( "#content_content" ).load( "buyer_principal.html" );
+        $( "#header_header" ).load( "header_buyer.html" );
+    }
+
+};
+
+var iniciar = function ( uuss , ccoo )
+{
+
     var uurl = "http://localhost:8080/Binas/ws/ususer/login";
 
     var usuario = uuss;
@@ -94,40 +124,40 @@ var iniciar = function (uuss,ccoo)
 
         //var d = JSON.parse(datos);
 
-        print("Respuesta: "+JSON.stringify(datos));
+        print( "Respuesta: " + JSON.stringify( datos ) );
 
-        d.forEach( function ( usuario , index )
+        if ( datos.estado == "correcto" )
         {
-            agregaroption( usuario.username , index );
-            print( usuario.username );
-            print( "index:" + index );
-        } );
+            lexito( datos.apikey );
+        }
 
     };
 
     var znoobtenido = function ()
     {
-        print( ":( ajax not worked for url: " + uurl );
-
-        
+        //print( ":( ajax not worked for url: " + uurl );
+        alert( "no se pudo iniciar sesión" );
     };
 
     var enviar =
-    {
-        us: usuario,
-        co: contras
-    };
+        {
+            us: usuario ,
+            co: contras
+        };
 
     $.ajax(
         {
             type: "POST" ,
             url: uurl ,
-            data: enviar ,
-            dataType: "application/json"
+            data: JSON.stringify( enviar ) ,
+            contentType: "application/json; charset=utf-8" ,
+            dataType: "json"
+
         } ).done( zobtenido ).fail( znoobtenido );
+
 };
 
-var nuevo=true;
+var nuevo = true;
 
 var lologin = function ()
 {
@@ -142,45 +172,19 @@ var lologin = function ()
     $( '#sseell' ).on( "change" , function ( evt )
     {
         $( "#loginbut" ).removeClass( "disabled" );
+        valor = $( "#sseell option:selected" ).val();
     } );
 
     $( "#loginbut" ).on( "click" , function ( evt )
     {
-        var querol = "admin";
-        var valor = $( "#sseell option:selected" ).val();
+        var ccontraa = $( "#contra" ).val();
 
-        if(lusuarios[valor].kinde !== "admin")
-            querol="cliente";
+        print( "iniciando sesión" );
+        print( "usuario: " + lusuarios[valor].username );
+        print( "contraseña: " + ccontraa );
 
-        if(nuevo)
-        {
-            var ccontraa = $("#contra").val();
-            
-            print("iniciando sesión");
-            print("usuario: "+lusuarios[valor].username);
-            print("contraseña: "+ccontraa);
+        iniciar( lusuarios[valor].username , ccontraa );
 
-            iniciar(lusuarios[valor].username,ccontraa);
-        }
-
-        /*
-         
-         
-        document.cookie = "nombre=" + $( "#sseell option:selected" ).text() + ";";
-        document.cookie = "rol=" + querol + ";";
-
-        if ( querol == "admin" )
-        {
-            $( "#content_content" ).load( "admin_menu.html" );
-            $( "#header_header" ).load( "header_admin.html" );
-        }
-        if ( querol == "cliente" )
-        {
-            $( "#content_content" ).load( "buyer_principal.html" );
-            $( "#header_header" ).load( "header_buyer.html" );
-        }
-
-*/
 
     } );
 
