@@ -116,7 +116,7 @@ var lexito = function ( akey )
         querol = "cliente";
 
 
-    document.cookie = "nombre=" + $( "#sseell option:selected" ).text() + ";";
+    document.cookie = "nombre=" + lusuarios[valor].username + ";";
     document.cookie = "rol=" + querol + ";";
     document.cookie = "apikey=" + akey + ";";
 
