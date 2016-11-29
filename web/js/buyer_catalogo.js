@@ -5,6 +5,27 @@ var produ_url = [ ];
 var produ_precio = [ ];
 var produ_code = [ ];
 var produ_canti = [ ];
+var produ_pprice = [ ];
+
+
+function getCookie( cname )
+{
+    var name = cname + "=";
+    var ca = document.cookie.split( ';' );
+    for ( var i = 0; i < ca.length; i++ )
+    {
+        var c = ca[i];
+        while ( c.charAt( 0 ) == ' ' )
+        {
+            c = c.substring( 1 );
+        }
+        if ( c.indexOf( name ) == 0 )
+        {
+            return c.substring( name.length , c.length );
+        }
+    }
+    return "";
+}
 
 var comprando = function ()
 {
@@ -149,23 +170,94 @@ var mostrarCompras = function ( )
         } );
 };
 
+var print = function(q)
+{
+    $("#vcat-cuatro").append(q);
+};
+
 var back2catalog = function ( )
 {
     $( "#vcat-tres" ).hide( );
     $( "#vcat-dos" ).show( 400 );
 };
+
+var resu = "?";
+var allok = true;
+
+var confirmarBDi = function ( i )
+{
+    var xurl = "/Binas/ws/cat/guardar";
+
+    var s_apikey = getCookie( "apikey" );
+
+    var s_pid = productos0[i];
+    var s_cua = produ_canti[i];
+    var s_pre = produ_precio[i];
+    var s_ppr = produ_pprice[i];
+
+    var zobtenido = function ( datos )
+    {
+        print( "OK" + JSON.stringify( datos ) );
+    };
+
+    var znoobtenido = function ( datos )
+    {
+        print( "Error al confirmar pedidis" + JSON.stringify( datos ) );
+        allok = false;
+    };
+
+    var enviar =
+        {
+            apikey: s_apikey
+            , pid: s_pid
+            , cua: s_cua
+            , pre: s_pre
+            , ppr: s_ppr
+        };
+
+    $.ajax(
+        {
+            type: "POST" ,
+            url: xurl ,
+            data: enviar ,
+            contentType: "application/json; charset=utf-8" ,
+            dataType: "json"
+
+        } ).done( zobtenido ).fail( znoobtenido );
+
+};
+
+var confirmarBD = function ()
+{
+    for ( var i = 0; i < productos0.length; i++ )
+    {
+        if ( allok )
+            confirmarBDi( i );
+    }
+
+    if ( allok )
+    {
+        swal( "Pedidos listos" , "" + resu );
+    }
+    else
+    {
+        swal( "Ocurrio algo que do debió pasar" + resu );
+    }
+};
+
 var confirmado = function ( )
 {
-    swal( "Confirmado!" );
+    //swal( "enviando" );
+
+    if ( confirmarBD() === false )
+        return;
+
     $( "#vcat-tres" ).hide( );
     $( "#vcat-dos" ).show( 200 );
     productos0.length = 0;
     $( "#carritox" ).text( "" + productos0.length );
 };
-var confirmarBD = function ( )
-{
 
-};
 var qwerqwer = function ( )
 {
     var $zyx = $( "#vcat-dos" );
@@ -233,7 +325,8 @@ var qwerqwer = function ( )
                         "http://localhost:8080/imagenes/" + $dats[i].productid + ".jpg" ,
                         "" + $dats[i].salepricemin ,
                         "" + $dats[i].stock ,
-                        "" + $dats[i].code ) );
+                        "" + $dats[i].code ,
+                        "" + $dats[i].purchprice ) );
                 }
 
 
@@ -248,15 +341,16 @@ var qwerqwer = function ( )
             }
         } );
 
+    $( '.brand-logo' ).text( "• Catálogo •" );
 
     $( "#carritox" ).text( "0" );
 };
-var agregar = function ( id , nombre , precio , url , code )
+var agregar = function ( id , nombre , precio , url , code , pprice )
 {
     //swal( "Agregando producto: " + nombre );
 
     //$.growl.notice( { title: "" + nombre , message: " + 1 agregado" } );
-    Materialize.toast(nombre + " (+1) agregado", 2800); // 4000 is the duration of the toast
+    Materialize.toast( nombre + " (+1) agregado" , 2800 ); // 4000 is the duration of the toast
 
     for ( var i = 0; i < productos0.length; i++ )
     {
@@ -273,13 +367,14 @@ var agregar = function ( id , nombre , precio , url , code )
     produ_url.push( "" + url );
     produ_code.push( "" + code );
     produ_canti.push( "" + 1 );
+    produ_pprice.push( "" + pprice );
 
     $( "#carritox" ).text( "" + productos0.length );
 
     //console.log( "Agregando producto " + id );
 };
 
-var producto = function ( id , nombre , imagenurl , precio , inve , cod )
+var producto = function ( id , nombre , imagenurl , precio , inve , cod , pprice )
 {
     var $div_principal = $( "<div>" );
 
@@ -313,7 +408,7 @@ var producto = function ( id , nombre , imagenurl , precio , inve , cod )
 
     $but.on( "click" , function ( evt )
     {
-        agregar( id , nombre , precio , imagenurl , cod );
+        agregar( id , nombre , precio , imagenurl , cod , pprice );
     } );
 
     $div_in_div.append( $p_prin );

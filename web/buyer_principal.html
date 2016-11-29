@@ -3,20 +3,8 @@
 		<a href="buyer_principal.html" class="collection-item">Principal</a>
 		<a href="buyer_catalogo.html" class="collection-item">Catálogo</a>
 	</div>
+    <div id="print"></div>
 </div>
 
 <script type = "text/javascript" src = "js/jquery.js" ></script >
-<script type="text/javascript">
-	var header_admin = function ()
-	{
-		$(".collection a").on("click",function ( e )
-		{
-			e.preventDefault();
-			//guardar los atributos dentro de page
-			var page = $( this ).attr( 'href' );
-			$( '#content_content' ).load( page , { redirect: 'no' } );
-		})
-
-	};
-	$(document).ready(header_admin);
-</script>
+<script type="text/javascript" src = "js/buyer_principal.js"></script>
