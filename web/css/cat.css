@@ -86,8 +86,8 @@ div.prolop
 }
 #howmany
 {
-    display: block;
-    float: right;
+    display: inline-block;
+    /*float: right;*/
     
     padding: 12px;
     border: #122b40 solid thick;

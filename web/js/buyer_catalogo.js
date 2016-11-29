@@ -96,7 +96,7 @@ var listar = function ()
 
     $but.text( "Seguir comprando" );
     $butcon.text( "Confirmar compra" );
-    $butcomprado.text("Mostrar ventas");
+    $butcomprado.text( "Mostrar ventas" );
     $lisdiv.append( $but );
     $lisdiv.append( $butcon );
     $lisdiv.append( $butcomprado );
@@ -113,14 +113,16 @@ var mostrarCompras = function ( )
         url: "/Binas/getVentas" ,
         //type: "GET"
         dataSrc: function ( json )
-                {return $.parseJSON(json);}
-            //data: d
+        {
+            return $.parseJSON( json );
+        }
+        //data: d
     } ).done(
         function ( datos )
         {
             $jsonx = datos;
-            console.log("sikiera lo iso?");
-            console.log(datos[0]);
+            console.log( "sikiera lo iso?" );
+            console.log( datos[0] );
             for ( var i = 0; i < datos.length; i++ )
             {
                 var $pe = $( "<p>" );
@@ -136,10 +138,10 @@ var mostrarCompras = function ( )
                 $pe.text( datos[i]["usuario"] );
                 $resres0.append( $pe.clone() );
 
-                console.log(datos[i]["nombre"]);
-                console.log(datos[i]["fecha"]);
-                console.log(datos[i]["cantidad"]);
-                console.log(datos[i]["usuario"]);
+                console.log( datos[i]["nombre"] );
+                console.log( datos[i]["fecha"] );
+                console.log( datos[i]["cantidad"] );
+                console.log( datos[i]["usuario"] );
             }
 
 
@@ -179,6 +181,13 @@ var qwerqwer = function ( )
     $loading.attr( "id" , "loadingloading" );
 
     $zyx.append( $loading );
+
+    //$("#carritox");
+
+    $( "#carritox" ).on( "click" , function ( evt )
+    {
+        comprando();
+    } );
 
     $( "#howmany" ).on( "click" , function ( evt )
     {
@@ -246,7 +255,8 @@ var agregar = function ( id , nombre , precio , url , code )
 {
     //swal( "Agregando producto: " + nombre );
 
-    $.growl.notice( { title: "" + nombre , message: " + 1 agregado" } );
+    //$.growl.notice( { title: "" + nombre , message: " + 1 agregado" } );
+    Materialize.toast(nombre + " (+1) agregado", 2800); // 4000 is the duration of the toast
 
     for ( var i = 0; i < productos0.length; i++ )
     {
